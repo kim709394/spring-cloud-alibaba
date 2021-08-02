@@ -1,0 +1,18 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: nacos-discovery-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848   #注册中心地址
+        ip: localhost #手动指定往nacos注册的ip地址
+        username: nacos
+        password: nacos
+  #健康检查地址:http://localhost:9002/actuator/nacosdiscovery
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

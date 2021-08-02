@@ -9,19 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-cloud-alibaba-nacos-config-client</artifactId>
+    <artifactId>spring-cloud-alibaba-nacos-discovery-comsumer</artifactId>
+
 
     <dependencies>
-
-        <!--connect to nacos -->
+        <!--注册到nacos的client-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-        <!--spring boot-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
         <!--springboot 健康检查-->
         <dependency>
@@ -33,13 +28,9 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--获取bootstrap配置文件-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
-
     </dependencies>
+
+
     <build>
         <plugins>
             <plugin>
