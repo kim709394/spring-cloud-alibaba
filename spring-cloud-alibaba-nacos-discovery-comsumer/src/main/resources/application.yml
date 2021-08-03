@@ -5,7 +5,7 @@ spring:
     name: nacos-discovery-comsumer
   cloud:
     nacos:
-      discovery:
+      discovery.:
         server-addr: localhost:8848   #注册中心地址
         ip: localhost #手动指定往nacos注册的ip地址
         username: nacos
