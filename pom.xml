@@ -16,6 +16,8 @@
         <module>spring-cloud-alibaba-dubbo/spring-cloud-alibaba-dubbo-user-api</module>
         <module>spring-cloud-alibaba-dubbo/spring-cloud-alibaba-dubbo-user-provider</module>
         <module>spring-cloud-alibaba-dubbo/spring-cloud-alibaba-dubbo-user-comsumer</module>
+        <module>spring-cloud-alibaba-sentinel</module>
+        <module>spring-cloud-alibaba-sentinel/spring-cloud-alibaba-sentinel-basic</module>
     </modules>
 
     <properties>
