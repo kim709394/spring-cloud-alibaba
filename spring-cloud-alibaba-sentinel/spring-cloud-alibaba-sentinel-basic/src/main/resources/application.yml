@@ -3,3 +3,12 @@ server:
 spring:
   application:
     name: spring-cloud-alibaba-sentinel-basic
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8099
+        client-ip: localhost
+#sentinel dashboard 启动命令入选：
+#java -Dserver.port=8099 -Dcsp.sentinel.dashboard.server=localhost:8099
+#-Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar

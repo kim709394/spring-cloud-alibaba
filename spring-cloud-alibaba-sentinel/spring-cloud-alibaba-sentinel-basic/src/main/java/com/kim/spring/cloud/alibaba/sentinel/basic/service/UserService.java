@@ -9,5 +9,8 @@ public interface UserService {
 
     String hello(String name);
 
+    String hi();
+
+    void how();
 
 }
