@@ -1,0 +1,27 @@
+server:
+  port: 9008
+spring:
+  application:
+    name: sentinel-feign-comsumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848   #注册中心地址
+        ip: localhost #手动指定往nacos注册的ip地址
+        username: nacos
+        password: nacos
+#sentinel配置
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8099
+        client-ip: localhost
+#健康检查地址:http://localhost:9008/actuator/nacosdiscovery
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+feign:
+  sentinel:
+    enabled: true   #开启sentinel对feign的支持
