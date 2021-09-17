@@ -1,0 +1,15 @@
+server:
+  port: 9009
+
+spring:
+  application:
+    name: rocketmq-spring-producer
+
+rocketmq:
+  name-server: 101.34.74.116:9876   #nameserver服务器地址
+  producer:
+    group: rocketmq-spring-producer   #生产者组名，集群实例的组名
+#swagger
+swagger:
+  enabled: true
+  base-package: com.kim.spring.cloud.alibaba.rocketmq.spring.controller
