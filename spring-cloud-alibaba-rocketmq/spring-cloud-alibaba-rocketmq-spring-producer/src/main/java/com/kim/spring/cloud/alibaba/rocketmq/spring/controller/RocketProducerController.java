@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.common.message.MessageConst;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.support.MessageBuilder;
@@ -37,8 +38,18 @@ public class RocketProducerController {
     @ApiOperation("同步发送消息")
     @GetMapping("/send/sync")
     public String sendSync(){
-        rocketMQTemplate.convertAndSend("TopicTest","hello");
-        rocketMQTemplate.send("TopicTest", MessageBuilder.withPayload("hello world").build());
+        //tpoic:tag  指定topic和tag，只能指定一个tag
+        rocketMQTemplate.convertAndSend("TopicTest:tagA","hello");
+        /**
+         * 通过setHeaders方法设置消息的key值
+         * 同理还可以根据这种方式来设置消息的FLAG、WAIT_STORE_MSG_OK以及一些用户自定义的其它头信息
+         * 在将Spring的Message转化为RocketMQ的Message时，为防止header信息与RocketMQ的系统属性冲突，
+         * 在所有header的名称前面都统一添加了前缀USERS_。因此在消费时如果想获取自定义的消息头信息，
+         * 请遍历头信息中以USERS_开头的key即可
+         * */
+        rocketMQTemplate.send("TopicTest:tagA", MessageBuilder.withPayload("hello world")
+                .setHeader(MessageConst.PROPERTY_KEYS,"key")
+                .setHeader("a",3).build());
         return "success";
 
     }
@@ -47,7 +58,7 @@ public class RocketProducerController {
     @GetMapping("/send/sync/obj")
     public String sendSyncObj(){
         User user=User.builder().id(1).name("alan").createTime(new Date());
-        rocketMQTemplate.send("TopicTest",MessageBuilder.withPayload(user).build());
+        rocketMQTemplate.send("TopicTest:tagA",MessageBuilder.withPayload(user).build());
         return "success";
     }
 
@@ -100,20 +111,11 @@ public class RocketProducerController {
 
     }
 
-    @ApiOperation("延时消息")
+    //延时消息需要先启动消息消费者服务再发送。延时消息只有在被消费后才会存储
+    @ApiOperation("发送延时消息")
     @GetMapping("/send/delay")
     public String sendDelay(){
-        rocketMQTemplate.asyncSend("DelayMsg", MessageBuilder.withPayload("delayMsg").build(), new SendCallback() {
-            @Override
-            public void onSuccess(SendResult sendResult) {
-                System.out.printf("发送结果:%n%s ",sendResult);
-            }
-
-            @Override
-            public void onException(Throwable e) {
-                e.printStackTrace();
-            }
-        },3000L,3);
+        rocketMQTemplate.syncSend("DelayMsg:tagB",MessageBuilder.withPayload("hello delayMsg").build(),3000L,3);
         System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         return "success";
     }

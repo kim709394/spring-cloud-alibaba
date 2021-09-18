@@ -1,0 +1,8 @@
+server:
+  port: 9010
+spring:
+  application:
+    name: rocketmq-spring-consumer
+
+rocketmq:
+  name-server: 101.34.74.116:9876   #nameserver服务器地址
