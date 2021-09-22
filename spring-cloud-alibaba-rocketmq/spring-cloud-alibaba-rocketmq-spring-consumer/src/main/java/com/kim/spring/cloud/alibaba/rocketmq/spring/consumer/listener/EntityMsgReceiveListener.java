@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author huangjie
- * @description
+ * @description   接收实体对象类型的消息响应对象
  * @date 2021/9/18
  */
 @Component

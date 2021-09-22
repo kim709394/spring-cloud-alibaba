@@ -5,14 +5,13 @@ import org.apache.rocketmq.common.UtilAll;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
-import org.apache.rocketmq.spring.annotation.SelectorType;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.apache.rocketmq.spring.core.RocketMQPushConsumerLifecycleListener;
 import org.springframework.stereotype.Component;
 
 /**
  * @author huangjie
- * @description
+ * @description  接收原生消息响应对象，并且可以对消费者进行一些系统的设置
  * @date 2021/9/18
  */
 @Component
