@@ -1,5 +1,6 @@
 package com.kim.spring.cloud.alibaba.rocketmq.spring.consumer.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,8 +8,9 @@ import java.util.Date;
  * @description
  * @date 2021/9/17
  */
-public class User {
+public class User implements Serializable {
 
+    private static final long serialVersionUID = 1569136815787597682L;
     private Integer id;
 
     private String name;
