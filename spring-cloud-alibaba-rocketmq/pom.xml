@@ -10,11 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spring-cloud-alibaba-rocketmq</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>spring-cloud-alibaba-rocketmq-spring-producer</module>
-        <module>spring-cloud-alibaba-rocketmq-spring-consumer</module>
-    </modules>
+
 
 
 </project>
