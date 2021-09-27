@@ -1,6 +1,8 @@
 package com.kim.spring.cloud.alibaba.rocketmq.stream;
 
-import com.kim.spring.cloud.alibaba.rocketmq.stream.processer.PolledProcesser;
+import com.kim.spring.cloud.alibaba.rocketmq.stream.processer.MySink;
+import com.kim.spring.cloud.alibaba.rocketmq.stream.processer.MySource;
+import com.spring4all.swagger.EnableSwagger2Doc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -11,7 +13,8 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
  * @date 2021/9/24
  */
 @SpringBootApplication
-@EnableBinding(PolledProcesser.class)
+@EnableSwagger2Doc
+@EnableBinding({MySource.class, MySink.class})
 public class RocketMQStreamApplication {
 
 

@@ -1,7 +1,6 @@
 package com.kim.spring.cloud.alibaba.rocketmq.stream.processer;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.stream.binder.PollableMessageSource;
+import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,16 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class MsgListener {
 
-    @Autowired
-    private PollableMessageSource source;
 
+    @StreamListener("input1")
+    public void receiveInput1(String msg) {
+        System.out.printf("input1 receive msg: %s", msg);
+    }
 
-
-    public void listener(){
-        source.poll(message -> {
-            String receive = (String)message.getPayload();
-            System.out.printf("receive a message: %s",receive);
-        });
+    @StreamListener("input2")
+    public void receiveInput2(String msg) {
+        System.out.printf("input2 receive msg: %s", msg);
     }
 
 }

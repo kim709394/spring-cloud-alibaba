@@ -7,28 +7,57 @@ spring:
     stream:
       rocketmq:
         binder:
-        name-server: 101.34.74.116:9876
-        bindings:
-          mychannel:    #通道名字，任意取
-            consumer:     #消费者信息配置
-              enable: true
-              tags: TopicTest
-              sql:  a>=3
-              delayLevelWhenNextConsume: 0  #并发消费重试策略，0表示由broker的策略决定
-              suspendCurrentQueueTimeMillis: 1000 #顺序消费重试间隔时间，单位：毫秒
-            producer:   #生产者信息配置
-              enable: true
-              group:  rocketmq-stream-producer
-              maxMessageSize: 8249344   #最大消息大小：单位：byte
-              transactional: false  #是否兼容事务消息
-              sync: false   #是否同步发送消息
-              vipChannelEnabled: true
-              sendMessageTimeout: 3000
-              compressMessageBodyThreshold: 4096  #超过4K的消息将被压缩
-              retryTimesWhenSendFailed: 2   #发送失败将重试2次发送
-              retryTimesWhenSendAsyncFailed: 2  #异步发送消息失败将重试2次发送
-              retryNextServer: false #当内部发送失败时指示是否重试另一个broker
+          name-server: 101.34.74.116:9876    #rocketmq的broker链接地址
+        bindings:     #output是消息生产者配置，input为消息消费者配置
+          output1:
+            producer:
+              group: rocketmq-stream-output1
+              sync: true
+          output2:
+            producer:
+              group: rocketmq-stream-output2
+              transactional: true
+          input1:
+            consumer:
+              tags: tagA
+              sql: a>=3
+              orderly: false
+              concurrency: 5
+          input2:
+            consumer:
+              tags: tagA
+              orderly: true
+      bindings:
+        output1:    #通道名字，任意取
+          destination: TopicTest
+          content-type: application/json
+        output2:
+          destination: TransactionMsg
+          content-type: application/json
+        input1:
+          destination: TopicTest
+          content-type: application/json
+          group: rocketmq-stream-input1
+        input2:
+          destination: TransactionMsg
+          content-type: application/json
+          group: rocketmq-stream-input2
+
 #swagger
 swagger:
   enabled: true
   base-package: com.kim.spring.cloud.alibaba.rocketmq.stream.controller
+
+logging:
+  lever:
+    com.alibaba.cloud.stream.binder.rocketmq: debug
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
