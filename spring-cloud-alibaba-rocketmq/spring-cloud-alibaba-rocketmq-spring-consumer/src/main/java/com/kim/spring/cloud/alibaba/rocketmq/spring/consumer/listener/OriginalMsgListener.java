@@ -4,10 +4,13 @@ import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.common.UtilAll;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.spring.annotation.MessageModel;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.apache.rocketmq.spring.core.RocketMQPushConsumerLifecycleListener;
 import org.springframework.stereotype.Component;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author huangjie
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RocketMQMessageListener(topic = "TopicTest",
+        messageModel = MessageModel.BROADCASTING,   //配置消费模式为广播模式
         consumerGroup = "rocketmq-spring-group-3")
 public class OriginalMsgListener implements RocketMQListener<MessageExt>, RocketMQPushConsumerLifecycleListener {
 
@@ -23,6 +27,11 @@ public class OriginalMsgListener implements RocketMQListener<MessageExt>, Rocket
     @Override
     public void onMessage(MessageExt message) {
         System.out.printf("receive message:%n%s ",message);
+        try {
+            System.out.println(new String(message.getBody(),"UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     //对消费者进行一些系统设置

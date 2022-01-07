@@ -1,4 +1,4 @@
-package com.kim.spring.cloud.alibaba.rocketmq.spring.consumer.listener;
+package com.kim.spring.cloud.alibaba.rocketmq.spring.consumer.instance.listener;
 
 import org.apache.rocketmq.spring.annotation.MessageModel;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RocketMQMessageListener(topic = "TopicTest",
-        consumerGroup = "rocketmq-spring-group",
-        selectorType = SelectorType.SQL92,  //消息过滤类型，可以选择tag或者sql92表达式
-        selectorExpression = "a>=3")   //消息过滤通配符或表达式，值可为tag或者sql92表达式
+        consumerGroup = "rocketmq-spring-group3",
+        messageModel = MessageModel.BROADCASTING   //配置消费模式为广播模式
+)
 public class MsgReceiveListener implements RocketMQListener<String> {
 
 

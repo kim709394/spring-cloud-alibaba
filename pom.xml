@@ -24,6 +24,7 @@
         <module>spring-cloud-alibaba-rocketmq/spring-cloud-alibaba-rocketmq-spring-consumer</module>
         <module>spring-cloud-alibaba-rocketmq/spring-cloud-alibaba-rocketmq-spring-producer</module>
         <module>spring-cloud-alibaba-rocketmq/spring-cloud-alibaba-rocketmq-stream</module>
+        <module>spring-cloud-alibaba-rocketmq/spring-cloud-alibaba-rocketmq-spring-consumer-instance</module>
     </modules>
 
     <properties>
