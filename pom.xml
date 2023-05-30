@@ -25,6 +25,7 @@
         <module>spring-cloud-alibaba-rocketmq/spring-cloud-alibaba-rocketmq-spring-producer</module>
         <module>spring-cloud-alibaba-rocketmq/spring-cloud-alibaba-rocketmq-stream</module>
         <module>spring-cloud-alibaba-rocketmq/spring-cloud-alibaba-rocketmq-spring-consumer-instance</module>
+        <module>spring-cloud-security-oauth2-uaa</module>
     </modules>
 
     <properties>
@@ -33,6 +34,7 @@
         <spring.cloud-version>Hoxton.SR9</spring.cloud-version>
         <rocketmq.spring.client.version>2.2.0</rocketmq.spring.client.version>
         <swagger.spring4all.versoin>1.9.1.RELEASE</swagger.spring4all.versoin>
+        <spring.security.jwt.version>1.1.1.RELEASE</spring.security.jwt.version>
     </properties>
 
     <dependencyManagement>
@@ -71,6 +73,11 @@
                 <groupId>com.spring4all</groupId>
                 <artifactId>swagger-spring-boot-starter</artifactId>
                 <version>${swagger.spring4all.versoin}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-jwt</artifactId>
+                <version>${spring.security.jwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
