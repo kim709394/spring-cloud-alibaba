@@ -1,6 +1,7 @@
 package com.kim.spring.cloud.security.oauth2.sso.config;
 
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -25,21 +26,26 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
         Map<String, String> additionalInfoForC1 = new HashMap<>();
         additionalInfoForC1.put("c1", "s1");
         clients.inMemory()
-                .withClient("c1").scopes("interval").secret("s1").resourceIds("interval").autoApprove(true)
-                .redirectUris("www.baidu.com").additionalInformation(additionalInfoForC1).authorities("r1", "r2")
-                .authorizedGrantTypes("")
+                .withClient("c1").scopes("interval")
+                .secret(new BCryptPasswordEncoder().encode("s1"))
+                .resourceIds("interval").autoApprove(true).redirectUris("www.baidu.com")
+                .additionalInformation(additionalInfoForC1).authorities("r1", "r2")
+                .authorizedGrantTypes("authorization_code","password","client_credentials","implicit","refresh_token")
                 .and()
-                .withClient("c2").secret("s2").scopes("third_app").resourceIds("outside").autoApprove(false)
-                .redirectUris("www.baidu.com").authorizedGrantTypes("")
+                .withClient("c2").secret(new BCryptPasswordEncoder().encode("s2"))
+                .scopes("third_app").resourceIds("outside").autoApprove(false)
+                .redirectUris("www.baidu.com").authorizedGrantTypes("authorization_code")
                 .and().build();
     }
 
 
+    //用来配置令牌端点的安全约束
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 
     }
 
+    //用来配置访问令牌访问端点和令牌服务(token services)
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
